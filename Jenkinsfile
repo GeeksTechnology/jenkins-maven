@@ -17,6 +17,14 @@ pipeline {
                 
             }
         }
+        stage('Push to Artefact'){
+
+            steps{
+                script{
+                    nexusArtifactUploader artifacts: [[artifactId: '${POM_ARTIFACTID}', classifier: '', file: 'my-app/target/${POM_ARTIFACTID}-${POM_VERSION}.${POM_PACKAGING}', type: '${POM_PACKAGING}']], credentialsId: 'NEXUS_CRED', groupId: '${POM_GROUPID}', nexusUrl: '192.168.50.27:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-snapshots', version: '${POM_VERSION}'
+                }
+            }
+        }
     }
     
 }
